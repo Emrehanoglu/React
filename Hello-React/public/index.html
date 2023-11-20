@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script> 
+    <script>
+        /* var template = "<h1>My first react app</h1>"
+        var root = document.getElementById('root')
+        root.innerHTML = template */
+        /* Yukarıdaki yapı klasik bir js yapısı. Bu yapıyı react ile aşağıdaki şekilde revize ediyorum. */
+
+        var template = React.createElement('h1',null,'My first react app') 
+        /* 1.parametre tag türünü ifade eder. */
+        /* null : h1 tag 'ı içerisinde class,type,style gibi bir özelliğin olmadığı anlamına geldir.*/
+        /* 3. parametre tag arasinda yazacak ifadeyi temsil eder */
+        var root = ReactDOM.createRoot(document.getElementById('root'))
+        root.render(template)
+    </script>
+</body>
+</html>
