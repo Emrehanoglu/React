@@ -18,8 +18,12 @@ var root = ReactDOM.createRoot(document.getElementById('root'));
 //function component
 
 /* function Header(props){
-    return <h2>ToDo App</h2>
+    return <div>
+                <h2>{props.title}</h2>
+                <p>{props.description}</p>
+            </div>
 } */
+
 function Todo(props) {
   return /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Gorev 1"), /*#__PURE__*/React.createElement("li", null, "Gorev 2"), /*#__PURE__*/React.createElement("li", null, "Gorev 3"));
 }
@@ -35,7 +39,7 @@ var Header = /*#__PURE__*/function (_React$Component) {
   _createClass(Header, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("h2", null, "ToDo App");
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, this.props.title), /*#__PURE__*/React.createElement("p", null, this.props.description));
     }
   }]);
   return Header;
@@ -50,7 +54,10 @@ var ToDoApp = /*#__PURE__*/function (_React$Component2) {
   _createClass(ToDoApp, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, null), /*#__PURE__*/React.createElement(Todo, null));
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
+        title: "ToDo Uygulamas\u0131",
+        description: "Bekleyen G\xF6revler"
+      }), /*#__PURE__*/React.createElement(Todo, null));
     }
   }]);
   return ToDoApp;

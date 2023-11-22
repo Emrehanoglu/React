@@ -3,8 +3,12 @@ var root = ReactDOM.createRoot(document.getElementById('root'))
 //function component
 
 /* function Header(props){
-    return <h2>ToDo App</h2>
+    return <div>
+                <h2>{props.title}</h2>
+                <p>{props.description}</p>
+            </div>
 } */
+
 function Todo(props){
     return (
         <ul>
@@ -18,7 +22,10 @@ function Todo(props){
 //class component
 class Header extends React.Component{
     render(){
-        return <h2>ToDo App</h2>
+        return <div>
+                    <h2>{this.props.title}</h2>
+                    <p>{this.props.description}</p>
+                </div>
     }
 }
 
@@ -26,7 +33,7 @@ class ToDoApp extends React.Component{
     render(){
         return (
             <div>
-                <Header />
+                <Header title="ToDo Uygulaması" description="Bekleyen Görevler"/>
                 <Todo />
             </div>
         )
