@@ -14,81 +14,134 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 var root = ReactDOM.createRoot(document.getElementById('root'));
-
-//class component
-var ToDoApp = /*#__PURE__*/function (_React$Component) {
-  _inherits(ToDoApp, _React$Component);
-  var _super = _createSuper(ToDoApp);
-  function ToDoApp() {
-    _classCallCheck(this, ToDoApp);
-    return _super.apply(this, arguments);
-  }
-  _createClass(ToDoApp, [{
-    key: "render",
-    value: function render() {
-      var data = {
-        title: "ToDo Uygulaması",
-        description: "Bekleyen Görevler",
-        items: ["görev1", "görev2", "görev3"]
-      };
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
-        title: data.title,
-        description: data.description
-      }), /*#__PURE__*/React.createElement(ToDoList, {
-        items: data.items
-      }));
-    }
-  }]);
-  return ToDoApp;
-}(React.Component);
-var Header = /*#__PURE__*/function (_React$Component2) {
-  _inherits(Header, _React$Component2);
-  var _super2 = _createSuper(Header);
+var product = [{
+  name: "Iphone11",
+  price: 20000
+}, {
+  name: "Iphone12",
+  price: 30000
+}];
+var selectedProducts = [];
+function productAdd(event, product) {
+  console.log(event.target, product.name);
+  selectedProducts.push(product.name);
+  root.render( /*#__PURE__*/React.createElement(App, null));
+}
+function saveProduct(event) {
+  event.preventDefault(); /* submit edilen sayfanın refresh edilmesinin önüne geçer */
+  var pname = event.target.elements.productName.value;
+  var pprice = event.target.elements.productPrice.value;
+  var newProduct = {
+    name: pname,
+    price: pprice
+  };
+  product.push(newProduct);
+  event.target.elements.productName.value = "";
+  event.target.elements.productPrice.value = "";
+  root.render( /*#__PURE__*/React.createElement(App, null));
+}
+var Header = /*#__PURE__*/function (_React$Component) {
+  _inherits(Header, _React$Component);
+  var _super = _createSuper(Header);
   function Header() {
     _classCallCheck(this, Header);
-    return _super2.apply(this, arguments);
+    return _super.apply(this, arguments);
   }
   _createClass(Header, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, this.props.title), /*#__PURE__*/React.createElement("p", null, this.props.description));
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Product App"), /*#__PURE__*/React.createElement("p", null, "Toplam Se\xE7ilen \xDCr\xFCn Say\u0131s\u0131 : ", this.props.selectProducts.length));
     }
   }]);
   return Header;
 }(React.Component);
-var ToDoList = /*#__PURE__*/function (_React$Component3) {
-  _inherits(ToDoList, _React$Component3);
-  var _super3 = _createSuper(ToDoList);
-  function ToDoList() {
-    _classCallCheck(this, ToDoList);
-    return _super3.apply(this, arguments);
+var NewProduct = /*#__PURE__*/function (_React$Component2) {
+  _inherits(NewProduct, _React$Component2);
+  var _super2 = _createSuper(NewProduct);
+  function NewProduct() {
+    _classCallCheck(this, NewProduct);
+    return _super2.apply(this, arguments);
   }
-  _createClass(ToDoList, [{
+  _createClass(NewProduct, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
-        return /*#__PURE__*/React.createElement(ToDoItem, {
-          key: index,
-          item: item
+      return /*#__PURE__*/React.createElement("form", {
+        onSubmit: saveProduct
+      }, /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        name: "productName",
+        id: "productName"
+      }), /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        name: "productPrice",
+        id: "productPrice"
+      }), /*#__PURE__*/React.createElement("button", {
+        type: "submit"
+      }, "Ekle"));
+    }
+  }]);
+  return NewProduct;
+}(React.Component);
+var ProductList = /*#__PURE__*/function (_React$Component3) {
+  _inherits(ProductList, _React$Component3);
+  var _super3 = _createSuper(ProductList);
+  function ProductList() {
+    _classCallCheck(this, ProductList);
+    return _super3.apply(this, arguments);
+  }
+  _createClass(ProductList, [{
+    key: "render",
+    value: function render() {
+      return this.props.products.map(function (product, index) {
+        return /*#__PURE__*/React.createElement(Product, {
+          product: product,
+          key: index
         });
+      });
+    }
+  }]);
+  return ProductList;
+}(React.Component);
+var Product = /*#__PURE__*/function (_React$Component4) {
+  _inherits(Product, _React$Component4);
+  var _super4 = _createSuper(Product);
+  function Product() {
+    _classCallCheck(this, Product);
+    return _super4.apply(this, arguments);
+  }
+  _createClass(Product, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+      return /*#__PURE__*/React.createElement("div", {
+        className: "product-details"
+      }, /*#__PURE__*/React.createElement("h2", null, this.props.product.name), this.props.product.price, /*#__PURE__*/React.createElement("button", {
+        type: "button",
+        onClick: function onClick(event) {
+          return productAdd(event, _this.props.product);
+        }
+      }, "\xDCr\xFCn Ekle"));
+    }
+  }]);
+  return Product;
+}(React.Component);
+var App = /*#__PURE__*/function (_React$Component5) {
+  _inherits(App, _React$Component5);
+  var _super5 = _createSuper(App);
+  function App() {
+    _classCallCheck(this, App);
+    return _super5.apply(this, arguments);
+  }
+  _createClass(App, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
+        selectProducts: selectedProducts
+      }), /*#__PURE__*/React.createElement(NewProduct, null), /*#__PURE__*/React.createElement(ProductList, {
+        products: product
       }));
     }
   }]);
-  return ToDoList;
+  return App;
 }(React.Component);
-var ToDoItem = /*#__PURE__*/function (_React$Component4) {
-  _inherits(ToDoItem, _React$Component4);
-  var _super4 = _createSuper(ToDoItem);
-  function ToDoItem() {
-    _classCallCheck(this, ToDoItem);
-    return _super4.apply(this, arguments);
-  }
-  _createClass(ToDoItem, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("li", null, this.props.item);
-    }
-  }]);
-  return ToDoItem;
-}(React.Component);
-root.render( /*#__PURE__*/React.createElement(ToDoApp, null));
+root.render( /*#__PURE__*/React.createElement(App, null));
