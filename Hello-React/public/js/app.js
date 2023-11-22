@@ -15,26 +15,38 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 var root = ReactDOM.createRoot(document.getElementById('root'));
 
-//function component
-
-/* function Header(props){
-    return <div>
-                <h2>{props.title}</h2>
-                <p>{props.description}</p>
-            </div>
-} */
-
-function Todo(props) {
-  return /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Gorev 1"), /*#__PURE__*/React.createElement("li", null, "Gorev 2"), /*#__PURE__*/React.createElement("li", null, "Gorev 3"));
-}
-
 //class component
-var Header = /*#__PURE__*/function (_React$Component) {
-  _inherits(Header, _React$Component);
-  var _super = _createSuper(Header);
+var ToDoApp = /*#__PURE__*/function (_React$Component) {
+  _inherits(ToDoApp, _React$Component);
+  var _super = _createSuper(ToDoApp);
+  function ToDoApp() {
+    _classCallCheck(this, ToDoApp);
+    return _super.apply(this, arguments);
+  }
+  _createClass(ToDoApp, [{
+    key: "render",
+    value: function render() {
+      var data = {
+        title: "ToDo Uygulaması",
+        description: "Bekleyen Görevler",
+        items: ["görev1", "görev2", "görev3"]
+      };
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
+        title: data.title,
+        description: data.description
+      }), /*#__PURE__*/React.createElement(ToDoList, {
+        items: data.items
+      }));
+    }
+  }]);
+  return ToDoApp;
+}(React.Component);
+var Header = /*#__PURE__*/function (_React$Component2) {
+  _inherits(Header, _React$Component2);
+  var _super2 = _createSuper(Header);
   function Header() {
     _classCallCheck(this, Header);
-    return _super.apply(this, arguments);
+    return _super2.apply(this, arguments);
   }
   _createClass(Header, [{
     key: "render",
@@ -44,22 +56,39 @@ var Header = /*#__PURE__*/function (_React$Component) {
   }]);
   return Header;
 }(React.Component);
-var ToDoApp = /*#__PURE__*/function (_React$Component2) {
-  _inherits(ToDoApp, _React$Component2);
-  var _super2 = _createSuper(ToDoApp);
-  function ToDoApp() {
-    _classCallCheck(this, ToDoApp);
-    return _super2.apply(this, arguments);
+var ToDoList = /*#__PURE__*/function (_React$Component3) {
+  _inherits(ToDoList, _React$Component3);
+  var _super3 = _createSuper(ToDoList);
+  function ToDoList() {
+    _classCallCheck(this, ToDoList);
+    return _super3.apply(this, arguments);
   }
-  _createClass(ToDoApp, [{
+  _createClass(ToDoList, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
-        title: "ToDo Uygulamas\u0131",
-        description: "Bekleyen G\xF6revler"
-      }), /*#__PURE__*/React.createElement(Todo, null));
+      return /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
+        return /*#__PURE__*/React.createElement(ToDoItem, {
+          key: index,
+          item: item
+        });
+      }));
     }
   }]);
-  return ToDoApp;
+  return ToDoList;
+}(React.Component);
+var ToDoItem = /*#__PURE__*/function (_React$Component4) {
+  _inherits(ToDoItem, _React$Component4);
+  var _super4 = _createSuper(ToDoItem);
+  function ToDoItem() {
+    _classCallCheck(this, ToDoItem);
+    return _super4.apply(this, arguments);
+  }
+  _createClass(ToDoItem, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("li", null, this.props.item);
+    }
+  }]);
+  return ToDoItem;
 }(React.Component);
 root.render( /*#__PURE__*/React.createElement(ToDoApp, null));

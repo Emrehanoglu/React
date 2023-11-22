@@ -1,41 +1,47 @@
 var root = ReactDOM.createRoot(document.getElementById('root'))
 
-//function component
-
-/* function Header(props){
-    return <div>
-                <h2>{props.title}</h2>
-                <p>{props.description}</p>
-            </div>
-} */
-
-function Todo(props){
-    return (
-        <ul>
-            <li>Gorev 1</li>
-            <li>Gorev 2</li>
-            <li>Gorev 3</li>
-        </ul>
-    )
-}
-
 //class component
-class Header extends React.Component{
+class ToDoApp extends React.Component{
     render(){
-        return <div>
-                    <h2>{this.props.title}</h2>
-                    <p>{this.props.description}</p>
-                </div>
+        var data = {
+            title:"ToDo Uygulaması",
+            description:"Bekleyen Görevler",
+            items:["görev1","görev2","görev3"]
+        }
+        return(
+            <div>
+                <Header title={data.title} description={data.description}/>
+                <ToDoList items={data.items}/>
+            </div>
+        )
     }
 }
 
-class ToDoApp extends React.Component{
+class Header extends React.Component{
+    render(){
+        return(
+            <div>
+                <h2>{this.props.title}</h2>
+                <p>{this.props.description}</p>
+            </div>
+        )
+    }
+}
+
+class ToDoList extends React.Component{
     render(){
         return (
-            <div>
-                <Header title="ToDo Uygulaması" description="Bekleyen Görevler"/>
-                <Todo />
-            </div>
+            <ul>
+                {this.props.items.map((item,index) => <ToDoItem key={index} item={item}/>)} 
+            </ul>
+        )
+    }
+}
+
+class ToDoItem extends React.Component{
+    render(){
+        return (
+            <li>{this.props.item}</li>
         )
     }
 }
