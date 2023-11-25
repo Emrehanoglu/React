@@ -6,6 +6,7 @@ class ToDoApp extends React.Component{
         super(props)
         this.clearItems = this.clearItems.bind(this)
         this.addItem = this.addItem.bind(this)
+        this.deleteItem = this.deleteItem.bind(this)
         this.state = {
             items:["görev1","görev2","görev3"]
         }
@@ -13,6 +14,17 @@ class ToDoApp extends React.Component{
     clearItems(){
         this.setState({
             items : []
+        })
+    }
+
+    deleteItem(item){
+        this.setState((prevState) => {
+            const arr = prevState.items.filter((i) => {
+                return item != i
+            })
+            return {
+                items:arr
+            }
         })
     }
 
@@ -33,7 +45,7 @@ class ToDoApp extends React.Component{
         return(
             <div>
                 <Header title={data.title} description={data.description}/>
-                <ToDoList items={this.state.items} clear={this.clearItems}/>
+                <ToDoList items={this.state.items} clear={this.clearItems} deleteItem={this.deleteItem}/>
                 <NewItem addItem={this.addItem}/>
             </div>
         )
@@ -45,7 +57,7 @@ class ToDoList extends React.Component{
         return (
             <div>
                 <ul>
-                    {this.props.items.map((item,index) => <ToDoItem key={index} item={item}/>)} 
+                    {this.props.items.map((item,index) => <ToDoItem deleteItem={this.props.deleteItem} key={index} item={item}/>)} 
                 </ul>
                 <button onClick={this.props.clear}>Temizle</button>
             </div>
@@ -97,9 +109,19 @@ class NewItem extends React.Component{
 }
 
 class ToDoItem extends React.Component{
+    constructor(props){
+        super(props)
+        this.deleteItem = this.deleteItem.bind(this)
+    }
+    deleteItem(){
+        this.props.deleteItem(this.props.item)
+    }
     render(){
         return (
-            <li>{this.props.item}</li>
+            <li>
+                {this.props.item}
+                <button onClick={this.deleteItem}>x</button>
+            </li>
         )
     }
 }
