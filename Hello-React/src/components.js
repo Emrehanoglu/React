@@ -5,6 +5,7 @@ class ToDoApp extends React.Component{
     constructor(props){
         super(props)
         this.clearItems = this.clearItems.bind(this)
+        this.addItem = this.addItem.bind(this)
         this.state = {
             items:["görev1","görev2","görev3"]
         }
@@ -12,6 +13,15 @@ class ToDoApp extends React.Component{
     clearItems(){
         this.setState({
             items : []
+        })
+    }
+
+    addItem(item){
+        if(this.state.items.indexOf(item) > -1 ){
+            return 'aynı elemanı ekleyemezsiniz'
+        }
+        this.setState((prevState) => { /* prevState ile onceki items hali gelir */
+            return {items : prevState.items.concat(item)} /* concat ile ekleme işlemi yaptık */
         })
     }
 
@@ -24,7 +34,7 @@ class ToDoApp extends React.Component{
             <div>
                 <Header title={data.title} description={data.description}/>
                 <ToDoList items={this.state.items} clear={this.clearItems}/>
-                <NewItem />
+                <NewItem addItem={this.addItem}/>
             </div>
         )
     }
@@ -55,19 +65,33 @@ class Header extends React.Component{
 }
 
 class NewItem extends React.Component{
+    constructor(props){
+        super(props)
+        this.onFormSubmit = this.onFormSubmit.bind(this)
+        this.state = {
+            error : ""
+        }
+    }
     onFormSubmit(e){ /* burada dışarıdan bir parametre almadığım için bind işlemi yapmadım */
         e.preventDefault()
         const item = e.target.elements.txtItem.value.trim() /* trim ile sağında solunda bosluk var ise siliyorum */
         if(item){
             e.target.elements.txtItem.value = ""
+            const error = this.props.addItem(item)
+            this.setState({
+                error:error
+            })
         }
     }
     render(){
         return(
-            <form onSubmit={this.onFormSubmit}>
-                <input type="text" name="txtItem"/>
-                <button type="submit">Ekle</button>
-            </form>
+            <div>
+                {this.state.error && <p>{this.state.error}</p>}
+                <form onSubmit={this.onFormSubmit}>
+                    <input type="text" name="txtItem"/>
+                    <button type="submit">Ekle</button>
+                </form>
+            </div>
         )
     }
 }

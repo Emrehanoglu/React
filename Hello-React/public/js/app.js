@@ -24,6 +24,7 @@ var ToDoApp = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ToDoApp);
     _this = _super.call(this, props);
     _this.clearItems = _this.clearItems.bind(_assertThisInitialized(_this));
+    _this.addItem = _this.addItem.bind(_assertThisInitialized(_this));
     _this.state = {
       items: ["görev1", "görev2", "görev3"]
     };
@@ -34,6 +35,19 @@ var ToDoApp = /*#__PURE__*/function (_React$Component) {
     value: function clearItems() {
       this.setState({
         items: []
+      });
+    }
+  }, {
+    key: "addItem",
+    value: function addItem(item) {
+      if (this.state.items.indexOf(item) > -1) {
+        return 'aynı elemanı ekleyemezsiniz';
+      }
+      this.setState(function (prevState) {
+        /* prevState ile onceki items hali gelir */
+        return {
+          items: prevState.items.concat(item)
+        }; /* concat ile ekleme işlemi yaptık */
       });
     }
   }, {
@@ -49,7 +63,9 @@ var ToDoApp = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/React.createElement(ToDoList, {
         items: this.state.items,
         clear: this.clearItems
-      }), /*#__PURE__*/React.createElement(NewItem, null));
+      }), /*#__PURE__*/React.createElement(NewItem, {
+        addItem: this.addItem
+      }));
     }
   }]);
   return ToDoApp;
@@ -94,9 +110,15 @@ var Header = /*#__PURE__*/function (_React$Component3) {
 var NewItem = /*#__PURE__*/function (_React$Component4) {
   _inherits(NewItem, _React$Component4);
   var _super4 = _createSuper(NewItem);
-  function NewItem() {
+  function NewItem(props) {
+    var _this2;
     _classCallCheck(this, NewItem);
-    return _super4.apply(this, arguments);
+    _this2 = _super4.call(this, props);
+    _this2.onFormSubmit = _this2.onFormSubmit.bind(_assertThisInitialized(_this2));
+    _this2.state = {
+      error: ""
+    };
+    return _this2;
   }
   _createClass(NewItem, [{
     key: "onFormSubmit",
@@ -106,19 +128,23 @@ var NewItem = /*#__PURE__*/function (_React$Component4) {
       var item = e.target.elements.txtItem.value.trim(); /* trim ile sağında solunda bosluk var ise siliyorum */
       if (item) {
         e.target.elements.txtItem.value = "";
+        var error = this.props.addItem(item);
+        this.setState({
+          error: error
+        });
       }
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("form", {
+      return /*#__PURE__*/React.createElement("div", null, this.state.error && /*#__PURE__*/React.createElement("p", null, this.state.error), /*#__PURE__*/React.createElement("form", {
         onSubmit: this.onFormSubmit
       }, /*#__PURE__*/React.createElement("input", {
         type: "text",
         name: "txtItem"
       }), /*#__PURE__*/React.createElement("button", {
         type: "submit"
-      }, "Ekle"));
+      }, "Ekle")));
     }
   }]);
   return NewItem;
