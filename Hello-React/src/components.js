@@ -43,10 +43,19 @@ class ToDoApp extends React.Component{
             description:"Bekleyen Görevler",
         }
         return(
-            <div>
-                <Header title={data.title} description={data.description}/>
-                <ToDoList items={this.state.items} clear={this.clearItems} deleteItem={this.deleteItem}/>
-                <NewItem addItem={this.addItem}/>
+            <div className="container my-3">
+                {/* my-3 ile y ekseninde alttan ve üstten bosluk bırakır */}
+                <div className="card">
+                    <div className="card-header">
+                        <Header title={data.title} description={data.description}/>
+                    </div>
+                    <div className="card-body">
+                        <ToDoList items={this.state.items} clear={this.clearItems} deleteItem={this.deleteItem}/>
+                    </div>
+                    <div className="card-footer">
+                        <NewItem addItem={this.addItem}/>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -75,10 +84,15 @@ class ToDoApp extends React.Component{
 function ToDoList(props){
     return (
         <div>
-            <ul>
+            <ul className="list-group">
                 {props.items.map((item,index) => <ToDoItem deleteItem={props.deleteItem} key={index} item={item}/>)} 
             </ul>
-            <button onClick={props.clear}>Temizle</button>
+            {props.items.length>0 ?
+                <p>
+                  <button className="btn btn-outline-danger float-end mt-3 btn-sm" onClick={props.clear}>Temizle</button>
+            </p> 
+            : <div className="alert alert-warning">Bir Görev Ekleyiniz</div>
+            }
         </div>
     )
 }
@@ -98,8 +112,8 @@ function ToDoList(props){
 
 function Header(props){
     return(
-        <div>
-            <h2>{props.title}</h2>
+        <div className="text-center">
+            <h3>{props.title}</h3>
             <p>{props.description}</p>
         </div>
     )
@@ -140,8 +154,10 @@ class NewItem extends React.Component{
             <div>
                 {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.onFormSubmit}>
-                    <input type="text" name="txtItem"/>
-                    <button type="submit">Ekle</button>
+                    <div className="input-group">
+                        <input className="form-control" type="text" name="txtItem"/>
+                        <button className="btn btn-primary" type="submit">Ekle</button>
+                    </div>
                 </form>
             </div>
         )
@@ -150,9 +166,10 @@ class NewItem extends React.Component{
 
 function ToDoItem(props){
     return (
-        <li>
+        <li className="list-group-item">
             {props.item}
-            <button onClick={() => {props.deleteItem(props.item)}}>x</button>
+            <button className="btn btn-danger btn-sm float-end" onClick={() => {props.deleteItem(props.item)}}>x</button>
+            {/* float-end ile bulunduğu <li> tagının en sonuna gider */}
         </li>
     )
 }
