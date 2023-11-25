@@ -50,6 +50,26 @@ class ToDoApp extends React.Component{
             </div>
         )
     }
+
+    componentDidMount(){
+        console.log("Uygulama olusturuldu/yuklendi")
+        const json_obje = localStorage.getItem("items")
+        const items = JSON.parse(json_obje)
+        if(items){
+            this.setState({
+                items : items
+            })
+        }
+    }
+    componentDidUpdate(prevProps,prevState){
+        console.log("Uygualama içerisinde veriler değişti")
+        if(prevState.items.length !== this.state.length){
+            /* önceki state bilgileri mevcuttaki state arasında bir farklılık var ise */
+             const json_str = JSON.stringify(this.state.items)
+             /* LS üzerinde JSON türünde string ifade saklayabiliyorduk */
+             localStorage.setItem("items",json_str)
+        }
+    }
 }
 
 class ToDoList extends React.Component{    

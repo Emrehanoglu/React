@@ -81,6 +81,29 @@ var ToDoApp = /*#__PURE__*/function (_React$Component) {
         addItem: this.addItem
       }));
     }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log("Uygulama olusturuldu/yuklendi");
+      var json_obje = localStorage.getItem("items");
+      var items = JSON.parse(json_obje);
+      if (items) {
+        this.setState({
+          items: items
+        });
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      console.log("Uygualama içerisinde veriler değişti");
+      if (prevState.items.length !== this.state.length) {
+        /* önceki state bilgileri mevcuttaki state arasında bir farklılık var ise */
+        var json_str = JSON.stringify(this.state.items);
+        /* LS üzerinde JSON türünde string ifade saklayabiliyorduk */
+        localStorage.setItem("items", json_str);
+      }
+    }
   }]);
   return ToDoApp;
 }(React.Component);
