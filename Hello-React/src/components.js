@@ -2,17 +2,42 @@ var root = ReactDOM.createRoot(document.getElementById('root'))
 
 //class component
 class ToDoApp extends React.Component{
+    constructor(props){
+        super(props)
+        this.clearItems = this.clearItems.bind(this)
+        this.state = {
+            items:["görev1","görev2","görev3"]
+        }
+    }
+    clearItems(){
+        this.setState({
+            items : []
+        })
+    }
+
     render(){
         var data = {
             title:"ToDo Uygulaması",
             description:"Bekleyen Görevler",
-            items:["görev1","görev2","görev3"]
         }
         return(
             <div>
                 <Header title={data.title} description={data.description}/>
-                <ToDoList items={data.items}/>
+                <ToDoList items={this.state.items} clear={this.clearItems}/>
                 <NewItem />
+            </div>
+        )
+    }
+}
+
+class ToDoList extends React.Component{    
+    render(){
+        return (
+            <div>
+                <ul>
+                    {this.props.items.map((item,index) => <ToDoItem key={index} item={item}/>)} 
+                </ul>
+                <button onClick={this.props.clear}>Temizle</button>
             </div>
         )
     }
@@ -29,26 +54,6 @@ class Header extends React.Component{
     }
 }
 
-class ToDoList extends React.Component{
-    constructor(props){ /* burada dışarıdan bir parametre aldığımız için bu şekilde bind işlemi yaptık. */
-        super(props)
-            this.clearItems = this.clearItems.bind(this)
-    }
-    clearItems(){
-        console.log("clear items")
-        console.log(this.props.items)
-    }
-    render(){
-        return (
-            <div>
-                <ul>
-                    {this.props.items.map((item,index) => <ToDoItem key={index} item={item}/>)} 
-                </ul>
-                <button onClick={this.clearItems}>Temizle</button>
-            </div>
-        )
-    }
-}
 class NewItem extends React.Component{
     onFormSubmit(e){ /* burada dışarıdan bir parametre almadığım için bind işlemi yapmadım */
         e.preventDefault()

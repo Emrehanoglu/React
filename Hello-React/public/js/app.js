@@ -14,37 +14,128 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 var root = ReactDOM.createRoot(document.getElementById('root'));
-var User = /*#__PURE__*/function (_React$Component) {
-  _inherits(User, _React$Component);
-  var _super = _createSuper(User);
-  function User(props) {
+
+//class component
+var ToDoApp = /*#__PURE__*/function (_React$Component) {
+  _inherits(ToDoApp, _React$Component);
+  var _super = _createSuper(ToDoApp);
+  function ToDoApp(props) {
     var _this;
-    _classCallCheck(this, User);
+    _classCallCheck(this, ToDoApp);
     _this = _super.call(this, props);
-    _this.changeEmail = _this.changeEmail.bind(_assertThisInitialized(_this));
+    _this.clearItems = _this.clearItems.bind(_assertThisInitialized(_this));
     _this.state = {
-      name: "Emre Hanoglu",
-      email: "emre@gmail.com"
+      items: ["görev1", "görev2", "görev3"]
     };
     return _this;
   }
-  _createClass(User, [{
-    key: "changeEmail",
-    value: function changeEmail() {
+  _createClass(ToDoApp, [{
+    key: "clearItems",
+    value: function clearItems() {
       this.setState({
-        name: "Arda Hanoğlu",
-        email: "arda@gmail.com"
+        items: []
       });
-      console.log(this);
     }
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, this.state.name), /*#__PURE__*/React.createElement("p", null, this.state.email), /*#__PURE__*/React.createElement("button", {
-        onClick: this.changeEmail
-      }, "Change Email"));
+      var data = {
+        title: "ToDo Uygulaması",
+        description: "Bekleyen Görevler"
+      };
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header, {
+        title: data.title,
+        description: data.description
+      }), /*#__PURE__*/React.createElement(ToDoList, {
+        items: this.state.items,
+        clear: this.clearItems
+      }), /*#__PURE__*/React.createElement(NewItem, null));
     }
   }]);
-  return User;
+  return ToDoApp;
 }(React.Component);
-root.render( /*#__PURE__*/React.createElement(User, null));
+var ToDoList = /*#__PURE__*/function (_React$Component2) {
+  _inherits(ToDoList, _React$Component2);
+  var _super2 = _createSuper(ToDoList);
+  function ToDoList() {
+    _classCallCheck(this, ToDoList);
+    return _super2.apply(this, arguments);
+  }
+  _createClass(ToDoList, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
+        return /*#__PURE__*/React.createElement(ToDoItem, {
+          key: index,
+          item: item
+        });
+      })), /*#__PURE__*/React.createElement("button", {
+        onClick: this.props.clear
+      }, "Temizle"));
+    }
+  }]);
+  return ToDoList;
+}(React.Component);
+var Header = /*#__PURE__*/function (_React$Component3) {
+  _inherits(Header, _React$Component3);
+  var _super3 = _createSuper(Header);
+  function Header() {
+    _classCallCheck(this, Header);
+    return _super3.apply(this, arguments);
+  }
+  _createClass(Header, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, this.props.title), /*#__PURE__*/React.createElement("p", null, this.props.description));
+    }
+  }]);
+  return Header;
+}(React.Component);
+var NewItem = /*#__PURE__*/function (_React$Component4) {
+  _inherits(NewItem, _React$Component4);
+  var _super4 = _createSuper(NewItem);
+  function NewItem() {
+    _classCallCheck(this, NewItem);
+    return _super4.apply(this, arguments);
+  }
+  _createClass(NewItem, [{
+    key: "onFormSubmit",
+    value: function onFormSubmit(e) {
+      /* burada dışarıdan bir parametre almadığım için bind işlemi yapmadım */
+      e.preventDefault();
+      var item = e.target.elements.txtItem.value.trim(); /* trim ile sağında solunda bosluk var ise siliyorum */
+      if (item) {
+        e.target.elements.txtItem.value = "";
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("form", {
+        onSubmit: this.onFormSubmit
+      }, /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        name: "txtItem"
+      }), /*#__PURE__*/React.createElement("button", {
+        type: "submit"
+      }, "Ekle"));
+    }
+  }]);
+  return NewItem;
+}(React.Component);
+var ToDoItem = /*#__PURE__*/function (_React$Component5) {
+  _inherits(ToDoItem, _React$Component5);
+  var _super5 = _createSuper(ToDoItem);
+  function ToDoItem() {
+    _classCallCheck(this, ToDoItem);
+    return _super5.apply(this, arguments);
+  }
+  _createClass(ToDoItem, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("li", null, this.props.item);
+    }
+  }]);
+  return ToDoItem;
+}(React.Component);
+root.render( /*#__PURE__*/React.createElement(ToDoApp, null));
