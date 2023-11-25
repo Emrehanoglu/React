@@ -107,57 +107,57 @@ var ToDoApp = /*#__PURE__*/function (_React$Component) {
   }]);
   return ToDoApp;
 }(React.Component);
-var ToDoList = /*#__PURE__*/function (_React$Component2) {
-  _inherits(ToDoList, _React$Component2);
-  var _super2 = _createSuper(ToDoList);
-  function ToDoList() {
-    _classCallCheck(this, ToDoList);
-    return _super2.apply(this, arguments);
-  }
-  _createClass(ToDoList, [{
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
-        return /*#__PURE__*/React.createElement(ToDoItem, {
-          deleteItem: _this2.props.deleteItem,
-          key: index,
-          item: item
-        });
-      })), /*#__PURE__*/React.createElement("button", {
-        onClick: this.props.clear
-      }, "Temizle"));
+function ToDoList(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, props.items.map(function (item, index) {
+    return /*#__PURE__*/React.createElement(ToDoItem, {
+      deleteItem: props.deleteItem,
+      key: index,
+      item: item
+    });
+  })), /*#__PURE__*/React.createElement("button", {
+    onClick: props.clear
+  }, "Temizle"));
+}
+
+/* class ToDoList extends React.Component{    
+    render(){
+        return (
+            <div>
+                <ul>
+                    {this.props.items.map((item,index) => <ToDoItem deleteItem={this.props.deleteItem} key={index} item={item}/>)} 
+                </ul>
+                <button onClick={this.props.clear}>Temizle</button>
+            </div>
+        )
     }
-  }]);
-  return ToDoList;
-}(React.Component);
-var Header = /*#__PURE__*/function (_React$Component3) {
-  _inherits(Header, _React$Component3);
-  var _super3 = _createSuper(Header);
-  function Header() {
-    _classCallCheck(this, Header);
-    return _super3.apply(this, arguments);
-  }
-  _createClass(Header, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, this.props.title), /*#__PURE__*/React.createElement("p", null, this.props.description));
+} */
+
+function Header(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, props.title), /*#__PURE__*/React.createElement("p", null, props.description));
+}
+
+/* class Header extends React.Component{
+    render(){
+        return(
+            <div>
+                <h2>{this.props.title}</h2>
+                <p>{this.props.description}</p>
+            </div>
+        )
     }
-  }]);
-  return Header;
-}(React.Component);
-var NewItem = /*#__PURE__*/function (_React$Component4) {
-  _inherits(NewItem, _React$Component4);
-  var _super4 = _createSuper(NewItem);
+} */
+var NewItem = /*#__PURE__*/function (_React$Component2) {
+  _inherits(NewItem, _React$Component2);
+  var _super2 = _createSuper(NewItem);
   function NewItem(props) {
-    var _this3;
+    var _this2;
     _classCallCheck(this, NewItem);
-    _this3 = _super4.call(this, props);
-    _this3.onFormSubmit = _this3.onFormSubmit.bind(_assertThisInitialized(_this3));
-    _this3.state = {
+    _this2 = _super2.call(this, props);
+    _this2.onFormSubmit = _this2.onFormSubmit.bind(_assertThisInitialized(_this2));
+    _this2.state = {
       error: ""
     };
-    return _this3;
+    return _this2;
   }
   _createClass(NewItem, [{
     key: "onFormSubmit",
@@ -188,29 +188,30 @@ var NewItem = /*#__PURE__*/function (_React$Component4) {
   }]);
   return NewItem;
 }(React.Component);
-var ToDoItem = /*#__PURE__*/function (_React$Component5) {
-  _inherits(ToDoItem, _React$Component5);
-  var _super5 = _createSuper(ToDoItem);
-  function ToDoItem(props) {
-    var _this4;
-    _classCallCheck(this, ToDoItem);
-    _this4 = _super5.call(this, props);
-    _this4.deleteItem = _this4.deleteItem.bind(_assertThisInitialized(_this4));
-    return _this4;
-  }
-  _createClass(ToDoItem, [{
-    key: "deleteItem",
-    value: function deleteItem() {
-      this.props.deleteItem(this.props.item);
+function ToDoItem(props) {
+  return /*#__PURE__*/React.createElement("li", null, props.item, /*#__PURE__*/React.createElement("button", {
+    onClick: function onClick() {
+      props.deleteItem(props.item);
     }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("li", null, this.props.item, /*#__PURE__*/React.createElement("button", {
-        onClick: this.deleteItem
-      }, "x"));
+  }, "x"));
+}
+
+/* class ToDoItem extends React.Component{
+    constructor(props){
+        super(props)
+        this.deleteItem = this.deleteItem.bind(this)
     }
-  }]);
-  return ToDoItem;
-}(React.Component);
+    deleteItem(){
+        this.props.deleteItem(this.props.item)
+    }
+    render(){
+        return (
+            <li>
+                {this.props.item}
+                <button onClick={this.deleteItem}>x</button>
+            </li>
+        )
+    }
+} */
+
 root.render( /*#__PURE__*/React.createElement(ToDoApp, null));

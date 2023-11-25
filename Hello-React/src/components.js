@@ -72,7 +72,18 @@ class ToDoApp extends React.Component{
     }
 }
 
-class ToDoList extends React.Component{    
+function ToDoList(props){
+    return (
+        <div>
+            <ul>
+                {props.items.map((item,index) => <ToDoItem deleteItem={props.deleteItem} key={index} item={item}/>)} 
+            </ul>
+            <button onClick={props.clear}>Temizle</button>
+        </div>
+    )
+}
+
+/* class ToDoList extends React.Component{    
     render(){
         return (
             <div>
@@ -83,9 +94,18 @@ class ToDoList extends React.Component{
             </div>
         )
     }
+} */
+
+function Header(props){
+    return(
+        <div>
+            <h2>{props.title}</h2>
+            <p>{props.description}</p>
+        </div>
+    )
 }
 
-class Header extends React.Component{
+/* class Header extends React.Component{
     render(){
         return(
             <div>
@@ -94,7 +114,7 @@ class Header extends React.Component{
             </div>
         )
     }
-}
+} */
 
 class NewItem extends React.Component{
     constructor(props){
@@ -128,7 +148,16 @@ class NewItem extends React.Component{
     }
 }
 
-class ToDoItem extends React.Component{
+function ToDoItem(props){
+    return (
+        <li>
+            {props.item}
+            <button onClick={() => {props.deleteItem(props.item)}}>x</button>
+        </li>
+    )
+}
+
+/* class ToDoItem extends React.Component{
     constructor(props){
         super(props)
         this.deleteItem = this.deleteItem.bind(this)
@@ -144,6 +173,6 @@ class ToDoItem extends React.Component{
             </li>
         )
     }
-}
+} */
 
 root.render(<ToDoApp />)
