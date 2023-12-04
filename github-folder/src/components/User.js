@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 
 export class User extends Component {
-    constructor(props) {
+    /* constructor(props) {
       super(props)
     
-      /* user bilgilerimin tutulduğu şablon */
       this.state = {
          id:"72378457",
          name:"Emre Hanoglu",
@@ -14,21 +13,21 @@ export class User extends Component {
          website:"www.linkedin.com/in/emrehanoglu",
          followers: "2"
       }
-    }
+    } */
 
     render() {
         return (
             <div className="card mb-3">
                 <div className="row g-0"> {/* g-0 : kolonlar arasında boşluk olmayacak */}
                     <div className="col-md-3">
-                        <img src={this.state.avatar_url} alt={this.state.name} className='img-fluid rounded-start'/>
+                        <img src={this.props.user.avatar_url} alt={this.props.user.name} className='img-fluid rounded-start avatar'/>
                     </div>
                     <div class="col-md-9">
                         <div class="card-body">
-                        <h3 class="card-title">{this.state.name}</h3>
-                        <p>Follower : {this.state.followers}</p>
-                        <a target='_blank' href={this.state.github_url} className='btn btn-primary'>Github Profile</a>
-                        <a target='_blank' href={this.state.website} className='btn btn-primary ms-2'>Website</a>
+                        <h3 class="card-title">{this.props.user.name}</h3>
+                        <p>Follower : {this.props.user.followers}</p>
+                        <a target='_blank' href={this.props.user.github_url} className='btn btn-primary'>Github Profile</a>
+                        <a target='_blank' href={this.props.user.website} className='btn btn-primary ms-2'>Website</a>
                         {/* target='_blank' : butonlara tıklanıldığında farklı sekmelerde sayfaların acılmasını sağlar */}
                          </div>
                     </div>
