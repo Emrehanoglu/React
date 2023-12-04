@@ -20,14 +20,12 @@ export class User extends Component {
             <div className="card mb-3">
                 <div className="row g-0"> {/* g-0 : kolonlar arasında boşluk olmayacak */}
                     <div className="col-md-3">
-                        <img src={this.props.user.avatar_url} alt={this.props.user.name} className='img-fluid rounded-start avatar'/>
+                        <img src={this.props.user.avatar_url} alt={this.props.user.login} className='img-fluid rounded-start avatar'/>
                     </div>
-                    <div class="col-md-9">
-                        <div class="card-body">
-                        <h3 class="card-title">{this.props.user.name}</h3>
-                        <p>Follower : {this.props.user.followers}</p>
-                        <a target='_blank' href={this.props.user.github_url} className='btn btn-primary'>Github Profile</a>
-                        <a target='_blank' href={this.props.user.website} className='btn btn-primary ms-2'>Website</a>
+                    <div className="col-md-9">
+                        <div className="card-body">
+                        <h3 className="card-title">{this.props.user.login}</h3>
+                        <a target='_blank' rel="noreferrer" href={this.props.user.html_url} className='btn btn-primary'>Github Profile</a>
                         {/* target='_blank' : butonlara tıklanıldığında farklı sekmelerde sayfaların acılmasını sağlar */}
                          </div>
                     </div>
