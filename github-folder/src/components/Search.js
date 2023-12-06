@@ -33,6 +33,10 @@ export class Search extends Component {
                         <button className="btn btn-outline-secondary" type="submit">Ara</button>
                     </div>
                 </form>
+                {
+                    this.props.showClearButton &&
+                    <button onClick={this.props.clearResults} className='btn btn-outline-danger btn-block mt-2'>Sonuçları Temizle</button>
+                }
             </div>
         )
     }
