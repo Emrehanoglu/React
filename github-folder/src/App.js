@@ -1,3 +1,4 @@
+import Alert from './components/Alert';
 import Navbar from './components/Navbar'
 import Search from './components/Search';
 import UserList from './components/UserList';
@@ -34,6 +35,10 @@ export class App extends Component {
 
   displayError = (msg,type) => {
     this.setState({error : {msg:msg,type:type}})
+
+    setTimeout(() => {
+      this.setState({error : null})
+    },3000)
   }
 
   render() {
@@ -41,7 +46,8 @@ export class App extends Component {
       <div>
         <Navbar />
         <Search searchUsers={this.searchUsers} clearResults={this.clearResults} showClearButton={this.state.users.length>0?true:false}
-        displayAlert={this.displayError} />
+          displayAlert={this.displayError} />
+        <Alert error={this.state.error}/>
         <div className="container mt-3">
           <UserList users={this.state.users} loading={this.state.loading}/>
         </div>
