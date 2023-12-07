@@ -40,6 +40,7 @@ export class App extends Component {
       this.setState({error : null})
     },3000)
   }
+  /*  */
 
   render() {
     return (
