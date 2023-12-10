@@ -1,5 +1,14 @@
 const Note = (props) => {
-    return(<li onClick={() => props.removeNote(props.note.id)} key={props.note.id}>
+
+    const removeNote = (id) => {
+        /* setNote(notes.filter(note => note.id !== id)) */
+        props.dispatch({
+            type: "REMOVE_NOTE",
+            id
+        })
+    }
+
+    return(<li onClick={() => removeNote(props.note.id)} key={props.note.id}>
             <h1 className="title">
                 { props.note.title }
             </h1>    

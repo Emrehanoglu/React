@@ -6,11 +6,11 @@ const NoteList = (props) => {
             <ul>
             { props.notes.map(note => {
                 return (
-                    <Note note={note} key={note.id} removeNote={props.removeNote}/>
+                    <Note note={note} key={note.id} dispatch={props.dispatch}/>
                     );
             }) }
             </ul>
-        </div>
+        </div> 
     )
 }
 

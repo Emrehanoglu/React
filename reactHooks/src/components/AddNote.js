@@ -6,7 +6,11 @@ const AddNote = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        props.newNote(title,description)
+        /* props.newNote(title,description) */
+        props.dispatch({
+            type: "ADD_NOTE",
+            id:props.notes.length+1, title:title, description:description
+        })
         setTitle('')
         setDescription('')
     }
