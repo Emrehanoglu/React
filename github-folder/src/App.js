@@ -6,55 +6,50 @@ import UserList from './components/UserList';
 
 // xmlhttprequest,jquery,axios,fetch
 
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
-export class App extends Component {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-      loading:false,
-      users: [],
-      error: null
-    }
-  }
+const App = () => {
+  const [loading, setLoading] = useState(false)
+  const [users, setUsers] = useState([])
+  const [error, setError] = useState(null)
 
-  searchUsers = (keyword) => {
-    this.setState({loading:true})
+  const searchUsers = (keyword) => {
+    setLoading({loading:true})
 
     setTimeout(() => {
       fetch("https://api.github.com/search/users?q=" + keyword)
       .then(response => response.json())
-      .then(data => this.setState({users:data.items, loading:false}))
+      .then(data => {
+        setUsers(data.items) 
+        setLoading(false)
+      })
     },1000)
   }
 
-  clearResults = () => {
-    this.setState({ users : [] })
+  const clearResults = () => {
+    setUsers([])
   }
 
-  displayError = (msg,type) => {
-    this.setState({error : {msg:msg,type:type}})
+  const displayError = (msg,type) => {
+    setError({msg:msg,type:type})
 
     setTimeout(() => {
-      this.setState({error : null})
+      setError(null)
     },3000)
   }
   /*  */
 
-  render() {
-    return (
-      <div>
-        <Navbar />
-        <Search searchUsers={this.searchUsers} clearResults={this.clearResults} showClearButton={this.state.users.length>0?true:false}
-          displayAlert={this.displayError} />
-        <Alert error={this.state.error}/>
-        <div className="container mt-3">
-          <UserList users={this.state.users} loading={this.state.loading}/>
-        </div>
+  return (
+    <div>
+      <Navbar />
+      <Search searchUsers={searchUsers} clearResults={clearResults} showClearButton={users.length>0?true:false}
+        displayAlert={displayError} />
+      <Alert error={error}/>
+      <div className="container mt-3">
+        <UserList users={users} loading={loading}/>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default App

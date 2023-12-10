@@ -1,50 +1,38 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 
-export class Search extends Component {
-
-    constructor(props) {
-      super(props)
+const Search = (props) => {
+    const [keyword,setKeyword] = useState('')
     
-      this.state = {
-         keyword:''
-      }
+
+    const onChange = (e) => {
+        setKeyword(e.target.value)
     }
 
-    onChange = (e) => {
-        this.setState({
-            keyword:e.target.value
-        })
-    }
-
-    onSubmit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault()
 
-        if(this.state.keyword === ''){
-            this.props.displayAlert('Anahtar Kelime Giriniz','danger')
+        if(keyword === ''){
+            props.displayAlert('Anahtar Kelime Giriniz','danger')
         }else{
-            this.props.searchUsers(this.state.keyword)
-            this.setState({
-                keyword : ''
-            })
+            props.searchUsers(keyword)
+            setKeyword('')
         }        
     }
 
-    render() {
-        return (
-            <div className="container my-3">
-                <form onSubmit={this.onSubmit}>
-                    <div class="input-group">
-                        <input type="text" value={this.state.keyword} onChange={this.onChange} className='form-control' placeholder='Anahtar Kelime'/>
-                        <button className="btn btn-outline-secondary" type="submit">Ara</button>
-                    </div>
-                </form>
-                {
-                    this.props.showClearButton &&
-                    <button onClick={this.props.clearResults} className='btn btn-outline-danger btn-block mt-2'>Sonuçları Temizle</button>
-                }
-            </div>
-        )
-    }
+    return (
+        <div className="container my-3">
+            <form onSubmit={onSubmit}>
+                <div class="input-group">
+                    <input type="text" value={keyword} onChange={onChange} className='form-control' placeholder='Anahtar Kelime'/>
+                    <button className="btn btn-outline-secondary" type="submit">Ara</button>
+                </div>
+            </form>
+            {
+                props.showClearButton &&
+                <button onClick={props.clearResults} className='btn btn-outline-danger btn-block mt-2'>Sonuçları Temizle</button>
+            }
+        </div>
+    )
 }
 
 export default Search
