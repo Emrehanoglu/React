@@ -1,12 +1,15 @@
 import Note from "./Note";
+import NotesContext from "../contexts/notesContext";
+import { useContext } from "react";
 
-const NoteList = (props) => {
+const NoteList = () => {
+    const {notes, dispatch} = useContext(NotesContext)
     return(
         <div className="note-list">
             <ul>
-            { props.notes.map(note => {
+            { notes.map(note => {
                 return (
-                    <Note note={note} key={note.id} dispatch={props.dispatch}/>
+                    <Note note={note} key={note.id} dispatch={dispatch}/>
                     );
             }) }
             </ul>

@@ -1,8 +1,12 @@
+import { useContext } from "react"
+import NotesContext from "../contexts/notesContext"
+
 const Note = (props) => {
+    const {dispatch} = useContext(NotesContext)
 
     const removeNote = (id) => {
         /* setNote(notes.filter(note => note.id !== id)) */
-        props.dispatch({
+        dispatch({
             type: "REMOVE_NOTE",
             id
         })

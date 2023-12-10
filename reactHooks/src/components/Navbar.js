@@ -1,8 +1,12 @@
-const Navbar = (props) => {
+import { useContext } from "react"
+import NotesContext from "../contexts/notesContext"
+
+const Navbar = () => {
+    const {notes} = useContext(NotesContext)
     return(
         <div className="navbar">
             <h1>NoteApp</h1>
-            <p>Toplam {props.notes.length} adet not mevcut</p>
+            <p>Toplam {notes.length} adet not mevcut</p>
         </div>
     )
 }

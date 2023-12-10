@@ -1,15 +1,17 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import NotesContext from "../contexts/notesContext"
 
-const AddNote = (props) => {
+const AddNote = () => {
     const [title,setTitle]= useState('')
     const [description,setDescription]= useState('')
+    const {dispatch, notes} = useContext(NotesContext) /* burada bana bir obje dönüyor ve bu obje aracılığıyla props parametrelerine ulaşacağım */
 
     const handleSubmit = (e) => {
         e.preventDefault()
         /* props.newNote(title,description) */
-        props.dispatch({
+        dispatch({
             type: "ADD_NOTE",
-            id:props.notes.length+1, title:title, description:description
+            id:notes.length+1, title:title, description:description
         })
         setTitle('')
         setDescription('')

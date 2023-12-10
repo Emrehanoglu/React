@@ -1,5 +1,6 @@
 import {useEffect, /* useState */ useReducer} from "react"
 import notesReducer from '../reducers/notesReducer'
+import NotesContext from "../contexts/notesContext"
 import AddNote from './AddNote' 
 import Navbar from './Navbar' 
 import NoteList from './NoteList' 
@@ -39,13 +40,13 @@ const NoteApp = () => {
     } */
 
     return(
-        <>
+        <NotesContext.Provider value={{notes, dispatch}}> {/* useContext */}
             <div className="container">
-                <Navbar notes={notes}/>
-                <NoteList notes={notes} dispatch={dispatch}/>
-                <AddNote notes={notes} dispatch={dispatch}/>
+                <Navbar /* notes={notes} *//>
+                <NoteList /* notes={notes} dispatch={dispatch} *//>
+                <AddNote /* notes={notes} dispatch={dispatch} *//>
             </div>
-        </>
+        </NotesContext.Provider>
     )
 }
 
