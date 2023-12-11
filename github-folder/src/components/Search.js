@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { UsersContext } from '../context/usersContext'
 
 const Search = (props) => {
     const [keyword,setKeyword] = useState('')
-    
+    const {searchUsers, users, clearResults} = useContext(UsersContext)
 
     const onChange = (e) => {
         setKeyword(e.target.value)
@@ -14,7 +15,7 @@ const Search = (props) => {
         if(keyword === ''){
             props.displayAlert('Anahtar Kelime Giriniz','danger')
         }else{
-            props.searchUsers(keyword)
+            searchUsers(keyword)
             setKeyword('')
         }        
     }
@@ -28,8 +29,8 @@ const Search = (props) => {
                 </div>
             </form>
             {
-                props.showClearButton &&
-                <button onClick={props.clearResults} className='btn btn-outline-danger btn-block mt-2'>Sonuçları Temizle</button>
+                users.length > 0 &&
+                <button onClick={clearResults} className='btn btn-outline-danger btn-block mt-2'>Sonuçları Temizle</button>
             }
         </div>
     )
