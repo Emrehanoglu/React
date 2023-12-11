@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import User from './User'
 import Loading from './Loading'
+import { UsersContext } from '../context/usersContext'
 
-const UserList = (props) => {
-    if(props.loading){
+const UserList = () => {
+    const {loading, users} = useContext(UsersContext)
+    if(loading){
         return <Loading />
     }
     return (
         <div>
-        {props.users.map(user => (
+        {users.map(user => (
             <User user={user} key={user.id}/>
         ))}
         </div>

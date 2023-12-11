@@ -3,31 +3,28 @@ import Navbar from './components/Navbar'
 import Search from './components/Search';
 import UserList from './components/UserList';
 
-import React, { useState } from 'react'
+import React from 'react'
 import UsersContextProvider from './context/usersContext';
+import AlertContextProvider from './context/alertContext';
 
 const App = () => {
   // const [loading, setLoading] = useState(false)
   // const [users, setUsers] = useState([])
+  /* bunları artık usersContext içerisinde useReducer ile hallediyorum */
   
-  const [error, setError] = useState(null)
-
-  const displayError = (msg,type) => {
-    setError({msg:msg,type:type})
-
-    setTimeout(() => {
-      setError(null)
-    },3000)
-  }
+  /* const [error, setError] = useState(null) */ 
+  /* bunu artık alertContext içerisinde useReducer ile hallediyorum */
 
   return (
     <UsersContextProvider>
-      <Navbar />
-      <Search displayAlert={displayError} />
-      <Alert error={error}/>
-      <div className="container mt-3">
-        <UserList />
-      </div>
+      <AlertContextProvider>
+        <Navbar />
+        <Search />
+        <Alert />
+        <div className="container mt-3">
+          <UserList />
+        </div>
+      </AlertContextProvider>
     </UsersContextProvider>
   )
 }

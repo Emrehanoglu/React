@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { UsersContext } from '../context/usersContext'
+import { AlertContext } from '../context/alertContext'
 
-const Search = (props) => {
+const Search = () => {
     const [keyword,setKeyword] = useState('')
     const {searchUsers, users, clearResults} = useContext(UsersContext)
+    const {displayError} = useContext(AlertContext)
 
     const onChange = (e) => {
         setKeyword(e.target.value)
@@ -13,7 +15,7 @@ const Search = (props) => {
         e.preventDefault()
 
         if(keyword === ''){
-            props.displayAlert('Anahtar Kelime Giriniz','danger')
+            displayError('Anahtar Kelime Giriniz','danger')
         }else{
             searchUsers(keyword)
             setKeyword('')
